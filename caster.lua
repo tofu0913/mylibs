@@ -44,13 +44,25 @@ ActionPacket.open_listener(function(act)
     local target = actionpacket:get_targets()()
     local acts = target:get_actions()()
     local param, resource, action_id, interruption, conclusion = acts:get_spell()
+    -- windower.add_to_chat(category)
     if category == 'casting_begin' then
         if not performing.casting and res[resource][action_id].name == performing.spell then
             -- log('casting')
             performing.casting = true
         end
         
-    elseif category == 'spell_finish' then
+    elseif S{'job_ability'}:contains(category) then
+        if res[resource][action_id].name == performing.spell then
+            -- log('done')
+            table.remove(queue, 1)
+            performing = {}
+            if #queue == 0 then
+                enabled = false
+                -- log('All done')
+            end
+        end
+        
+    elseif S{'spell_finish'}:contains(category) then
         if performing.casting and res[resource][action_id].name == performing.spell then
             -- log('done')
             table.remove(queue, 1)
