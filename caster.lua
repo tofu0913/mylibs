@@ -1,5 +1,6 @@
 
 require('actions')
+res = require('resources')
 
 local queue = {}
 local performing = {}
