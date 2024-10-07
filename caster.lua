@@ -19,7 +19,7 @@ function cast_all()
 end
 
 windower.register_event('prerender', function()
-    if enabled and os.clock() - lastcasttime > 1 and #queue > 0 and not performing.casting then
+    if enabled and os.clock() - lastcasttime > 2 and #queue > 0 and not performing.casting then
         q = queue[1]
         performing.type = q.type
         performing.spell = q.spell
