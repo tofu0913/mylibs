@@ -18,6 +18,10 @@ function cast_all()
     enabled = true
 end
 
+function cast_init()
+    queue = {}
+end
+
 windower.register_event('prerender', function()
     if enabled and os.clock() - lastcasttime > 2 and #queue > 0 and not performing.casting then
         q = queue[1]
