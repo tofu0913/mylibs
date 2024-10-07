@@ -30,7 +30,6 @@ windower.register_event('prerender', function()
     end
 end)
 
-
 ActionPacket.open_listener(function(act)
     if not performing.type or act.param == 0 then
         return
@@ -42,13 +41,13 @@ ActionPacket.open_listener(function(act)
     local param, resource, action_id, interruption, conclusion = acts:get_spell()
     if category == 'casting_begin' then
         if not performing.casting and res[resource][action_id].name == performing.spell then
-            log('casting')
+            -- log('casting')
             performing.casting = true
         end
         
     elseif category == 'spell_finish' then
         if performing.casting and res[resource][action_id].name == performing.spell then
-            log('done')
+            -- log('done')
             table.remove(queue, 1)
             performing = {}
             if #queue == 0 then
