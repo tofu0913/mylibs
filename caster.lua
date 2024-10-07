@@ -52,7 +52,7 @@ ActionPacket.open_listener(function(act)
             performing = {}
             if #queue == 0 then
                 enabled = false
-                log('All done')
+                -- log('All done')
             end
         end
     end
