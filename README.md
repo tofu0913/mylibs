@@ -1,13 +1,13 @@
 # How to use
 ### utils.lua
-Just require it.
+Provide various functions.
 
 ```
 require('mylibs/utils')
 ```
 
 ### caster.lua
-Require it
+Cast spells or use abilities.
 ```
 require('mylibs/caster')
 ```
@@ -19,7 +19,7 @@ cast_all()
 ```
 
 ### aggro.lua
-Require it
+Aggro tracker.
 ```
 require('mylibs/aggro')
 ```
