@@ -5,13 +5,18 @@ Provide various functions.
 ```
 require('mylibs/utils')
 ```
+Example
+```
+checkDeBuffs()
+isInParty(p3.id)
+```
 
 ### caster.lua
 Cast spells or use abilities.
 ```
 require('mylibs/caster')
 ```
-The following is API example
+Example
 ```
 cast_init()
 add_spell('so', '猛者のメヌエットV')
@@ -23,8 +28,8 @@ Aggro tracker.
 ```
 require('mylibs/aggro')
 ```
-The following is API example
+Example
 ```
-log(isAggrod())
+isAggrod()
 isInAggro(target.id)
 ```
