@@ -12,6 +12,7 @@ function cast_all()
     end
     send_command(str)
     send_command('input //as cast')
+    queue = {}
 end
 
 function cast_init()
