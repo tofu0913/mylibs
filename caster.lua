@@ -36,7 +36,7 @@ windower.register_event('prerender', function()
 end)
 
 ActionPacket.open_listener(function(act)
-    if not performing.type or act.param == 0 then
+    if not enabled or not performing.type or act.param == 0 then
         return
     end
     local actionpacket = ActionPacket.new(act)
