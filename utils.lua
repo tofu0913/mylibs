@@ -36,6 +36,10 @@ function string_split(s, p)
     local temp = {}
     local index = 0
     local last_index = string.len(s)
+    if not string.find(s, p, index) then
+        table.insert(temp, s)
+        return temp
+    end
 
     while true do
         local i, e = string.find(s, p, index)
@@ -45,7 +49,6 @@ function string_split(s, p)
             local word_bound = i - 1
             table.insert(temp, string.sub(s, index, word_bound))
             index = next_index
-            log(index)
         else            
             if index > 0 and index <= last_index then
                 table.insert(temp, string.sub(s, index, last_index))
