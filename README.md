@@ -23,6 +23,13 @@ add_spell('so', '猛者のメヌエットV')
 cast_all()
 ```
 
+### caster_lite.lua
+For some case you cannot use action handler, ex: GearSwap
+```
+require('mylibs/caster_lite')
+```
+Same APIs with caster
+
 ### aggro.lua
 Aggro tracker.
 ```
@@ -32,4 +39,14 @@ Example
 ```
 isAggrod()
 isInAggro(target.id)
+```
+
+### fsd_lite.lua
+Better coding performance for FSD
+```
+require('mylibs/fsd_lite')
+```
+Example
+```
+fsd_go(addon shortcut, fsd path, callback function)
 ```
