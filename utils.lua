@@ -35,6 +35,17 @@ function dump(o)
    end
 end
 
+function dump_res()
+    local file = assert(io.open(windower.addon_path..'test.lua', "w"))
+    file:write('short_song_names = {\n')
+    for id in res.spells:prefix('/song'):keyset():it() do
+        spell = res.spells[id]
+        file:write('\t["'..spell.en..'"] = {id='..spell.id..',en="'..spell.en..'",ja="'..spell.ja..'"},\n')
+    end
+    file:write('}\nreturn short_song_names')
+    file:close()
+end
+
 function array_contains(tab, val)
     for index, value in ipairs(tab) do
         if value == val then
