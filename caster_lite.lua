@@ -15,7 +15,7 @@ function cast_all()
         if q.type == 'cmd' then
             str = str .. ('input //as add '..q.type..' "'..q.command..'";')
         else
-            str = str .. ('input //as add '..q.type..' "'..windower.to_shift_jis(q.spell)..'" '..q.target..'; wait 0.1;')
+            str = str .. ('input //as add '..q.type..' "'..q.spell..'" '..q.target..'; wait 0.1;')
         end
     end
     str = str .. 'input //as cast'
