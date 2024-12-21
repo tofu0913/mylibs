@@ -9,6 +9,8 @@ Example
 ```
 checkDeBuffs()
 isInParty(p3.id)
+isJob(job name)
+isSubJob(job name)
 ```
 
 ### caster.lua

@@ -8,6 +8,20 @@ function checkDeBuffs()
     return true
 end
 
+function isJob(job)
+    if windower.ffxi.get_player().main_job == job then
+        return true
+    end
+    return false
+end
+
+function isSubJob(job)
+    if windower.ffxi.get_player().sub_job == job then
+        return true
+    end
+    return false
+end
+
 function isInParty(pid)
     if pid == windower.ffxi.get_player().id then
         return true
