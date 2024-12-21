@@ -8,6 +8,15 @@ function checkDeBuffs()
     return true
 end
 
+function hasBuff(buffname)
+    for i,v in pairs(windower.ffxi.get_player()['buffs']) do
+        if res.buffs[v] and res.buffs[v].ja == buffname then
+            return true
+        end
+    end
+    return false
+end
+
 function isJob(job)
     if windower.ffxi.get_player().main_job == job then
         return true

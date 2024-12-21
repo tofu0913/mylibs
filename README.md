@@ -11,6 +11,7 @@ checkDeBuffs()
 isInParty(p3.id)
 isJob(job name)
 isSubJob(job name)
+hasBuff(buff name)
 ```
 
 ### caster.lua
