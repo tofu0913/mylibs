@@ -54,3 +54,16 @@ Example
 ```
 fsd_go(addon shortcut, fsd path, callback function)
 ```
+
+### buffs.lua
+Check party member buffs.
+
+```
+require('mylibs/buffs')
+```
+Example
+```
+init_member_table()
+get_song_counts()
+get_max_song_count()
+```
