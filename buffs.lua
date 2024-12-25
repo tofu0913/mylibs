@@ -83,14 +83,16 @@ function get_max_song_count()
 	local four = true
 	local c = get_song_counts()
 	for i = 1, #c do
-		if c[i] > rtn then
-			rtn = c[i]
-		end
-		if c[i] < 5 then
-			five = false
-		end
-		if c[i] ~= 4 then
-			four = false
+		if c[i] then
+			if c[i] > rtn then
+				rtn = c[i]
+			end
+			if c[i] < 5 then
+				five = false
+			end
+			if c[i] ~= 4 then
+				four = false
+			end
 		end
 	end
 	if five then
