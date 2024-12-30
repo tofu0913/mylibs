@@ -27,6 +27,11 @@ end
 local DEFAULT_WAIT_TIME = 2
 local wait_time = DEFAULT_WAIT_TIME
 
+function cast_reset()
+	cast_init()
+	performing = {}
+end
+
 function cast_init()
     queue = {}
 	wait_time = DEFAULT_WAIT_TIME
