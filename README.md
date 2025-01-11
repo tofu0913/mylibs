@@ -13,6 +13,7 @@ isJob(job name)
 isSubJob(job name)
 hasBuff(buff name)
 getPartyTarget()
+in_pos(x, y)
 ```
 
 ### caster.lua
