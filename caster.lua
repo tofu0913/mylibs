@@ -6,6 +6,7 @@ local queue = {}
 local performing = {}
 local enabled = false
 local lastcasttime = os.clock()
+local castingtimeout = nil
 
 function add_spell(typ, spell, tar)
     table.insert(queue, {['type']=typ, ['spell']=spell, ['target']=tar or 'me'})
@@ -58,10 +59,18 @@ windower.register_event('prerender', function()
             performing.target = q.target
             -- log('Perform '..performing.spell)
             windower.send_command('input /'..performing.type..' '..windower.to_shift_jis(performing.spell)..' <'..performing.target..'>')
+			if not castingtimeout then
+				castingtimeout = os.clock()
+			end
         end
         
         lastcasttime = os.clock()
     end
+	if enabled and castingtimeout and os.clock() - castingtimeout > 10 then
+		castingtimeout = nil
+		log('found timeout')
+		cast_reset()
+	end
 end)
 
 ActionPacket.open_listener(function(act)
@@ -73,11 +82,12 @@ ActionPacket.open_listener(function(act)
     local target = actionpacket:get_targets()()
     local acts = target:get_actions()()
     local param, resource, action_id, interruption, conclusion = acts:get_spell()
-    -- windower.add_to_chat(category)
+    -- log(category)
     if category == 'casting_begin' then
         if not performing.casting and res[resource][action_id].name == performing.spell then
             -- log('casting')
             performing.casting = true
+			castingtimeout = nil
         end
         
     elseif S{'job_ability'}:contains(category) then
@@ -85,6 +95,7 @@ ActionPacket.open_listener(function(act)
             -- log('done')
             table.remove(queue, 1)
             performing = {}
+			castingtimeout = nil
             if #queue == 0 then
                 enabled = false
                 -- log('All done')
