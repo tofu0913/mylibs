@@ -83,12 +83,15 @@ ActionPacket.open_listener(function(act)
     local acts = target:get_actions()()
     local param, resource, action_id, interruption, conclusion = acts:get_spell()
     -- log(category)
-    if category == 'casting_begin' then
+    if category == 'casting_begin' and not interruption then
         if not performing.casting and res[resource][action_id].name == performing.spell then
             -- log('casting')
             performing.casting = true
 			castingtimeout = nil
         end
+		
+    elseif category == 'casting_begin' and interruption then
+		performing = {}
         
     elseif S{'job_ability'}:contains(category) then
         if res[resource][action_id].name == performing.spell then
