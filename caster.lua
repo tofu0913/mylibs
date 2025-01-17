@@ -7,6 +7,7 @@ local performing = {}
 local enabled = false
 local lastcasttime = os.clock()
 local castingtimeout = nil
+local castingtimeout_cmd = nil
 
 function add_spell(typ, spell, tar)
     table.insert(queue, {['type']=typ, ['spell']=spell, ['target']=tar or 'me'})
@@ -33,8 +34,13 @@ function cast_reset()
 	performing = {}
 end
 
+function cast_timeout(cmd)
+	castingtimeout_cmd = cmd
+end
+
 function cast_init()
     queue = {}
+	castingtimeout_cmd = nil
 	wait_time = DEFAULT_WAIT_TIME
 end
 
@@ -70,6 +76,9 @@ windower.register_event('prerender', function()
 		castingtimeout = nil
 		log('found timeout')
 		cast_reset()
+		if castingtimeout_cmd then
+			windower.send_command('input '..windower.to_shift_jis(castingtimeout_cmd))
+		end
 	end
 end)
 
