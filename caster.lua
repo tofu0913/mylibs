@@ -8,6 +8,7 @@ local enabled = false
 local lastcasttime = os.clock()
 local castingtimeout = nil
 local castingtimeout_cmd = nil
+local targetmode = false
 
 function add_spell(typ, spell, tar)
     table.insert(queue, {['type']=typ, ['spell']=spell, ['target']=tar or 'me'})
@@ -37,9 +38,13 @@ end
 function cast_timeout(cmd)
 	castingtimeout_cmd = cmd
 end
+function cast_targetmode()
+	targetmode = true
+end
 
 function cast_init()
     queue = {}
+	targetmode = false
 	castingtimeout_cmd = nil
 	wait_time = DEFAULT_WAIT_TIME
 end
@@ -49,6 +54,14 @@ function cast_time(sec)
 end
 
 windower.register_event('prerender', function()
+	if enabled and targetmode then
+		local target = windower.ffxi.get_mob_by_target('t')
+		if not target or (target and not isMob(target.id))then
+			cast_reset()
+			log('No target, reset')
+			return
+		end
+	end
     if enabled and os.clock() - lastcasttime > wait_time and #queue > 0 and not performing.casting then
         q = queue[1]
         if q.type == 'cmd' then

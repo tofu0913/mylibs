@@ -132,3 +132,11 @@ function in_pos(x, y)
 	end
 	return false
 end
+
+function isMob(id)
+    m = windower.ffxi.get_mob_by_id(id)
+    if m and m['spawn_type']==16 and m['hpp'] >0 then
+        return true
+    end
+    return false
+end
