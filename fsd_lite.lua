@@ -7,6 +7,10 @@ function fsd_go(app, path, callback)
     windower.send_command("input //fsd g "..path.." "..key.." "..app)
 end
 
+function fsd_go_loop(app, path)
+    windower.send_command("input //fsd l "..path)
+end
+
 function fsd_go_reverse(app, path, callback)
     key = tostring(os.clock()*1000)
     callback_table[key] = callback
