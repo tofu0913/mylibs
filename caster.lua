@@ -10,8 +10,8 @@ local castingtimeout = nil
 local castingtimeout_cmd = nil
 local targetmode = false
 
-function add_spell(typ, spell, tar)
-    table.insert(queue, {['type']=typ, ['spell']=spell, ['target']=tar or 'me'})
+function add_spell(typ, spell, tar, cmd)
+    table.insert(queue, {['type']=typ, ['spell']=spell, ['target']=tar or 'me', ['command']=cmd or ''})
 end
 
 function add_command(cmd)
@@ -77,6 +77,10 @@ windower.register_event('prerender', function()
             performing.spell = q.spell
             performing.target = q.target
             -- log('Perform '..performing.spell)
+			if q.command then
+				windower.send_command('input '..windower.to_shift_jis(q.command))
+				q.command = nil
+			end
             windower.send_command('input /'..performing.type..' '..windower.to_shift_jis(performing.spell)..' <'..performing.target..'>')
 			if not castingtimeout then
 				castingtimeout = os.clock()
