@@ -27,7 +27,7 @@ function cast_all()
     enabled = true
 end
 
-local DEFAULT_WAIT_TIME = 2
+local DEFAULT_WAIT_TIME = 1
 local wait_time = DEFAULT_WAIT_TIME
 
 function cast_reset()
