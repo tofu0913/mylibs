@@ -143,3 +143,7 @@ function isMob(id)
     end
     return false
 end
+
+function math_mod(a,b)
+	return a - math.floor(a/b)*b
+end
