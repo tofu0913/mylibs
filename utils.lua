@@ -1,4 +1,6 @@
 
+require('coroutine')
+
 function checkDeBuffs()
     local player = windower.ffxi.get_player()
     local buffs = S(player.buffs):map(string.lower .. table.get-{'english'} .. table.get+{res.buffs})
@@ -146,4 +148,15 @@ end
 
 function math_mod(a,b)
 	return a - math.floor(a/b)*b
+end
+
+function waitfor(check, done, waittime)
+	flag = check()
+	if flag then
+		done()
+	else
+		coroutine.schedule(function()
+				waitfor(check, done, waittime or 1)
+			end, waittime or 1)
+	end
 end
