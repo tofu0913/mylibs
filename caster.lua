@@ -6,6 +6,7 @@ local queue = {}
 local performing = {}
 local enabled = false
 local lastcasttime = os.clock()
+local lastchecktime = os.clock()
 local castingtimeout = nil
 local castingtimeout_cmd = nil
 local targetmode = false
@@ -62,7 +63,7 @@ windower.register_event('prerender', function()
 			return
 		end
 	end
-    if enabled and os.clock() - lastcasttime > wait_time and #queue > 0 and not performing.casting then
+    if enabled and os.clock() - lastcasttime > wait_time and os.clock() - lastchecktime > 0.5 and #queue > 0 and not performing.casting then
         q = queue[1]
         if q.type == 'cmd' then
             windower.send_command('input '..windower.to_shift_jis(q.command))
@@ -82,12 +83,12 @@ windower.register_event('prerender', function()
 				q.command = nil
 			end
             windower.send_command('input /'..performing.type..' '..windower.to_shift_jis(performing.spell)..' <'..performing.target..'>')
+			-- log('use')
 			if not castingtimeout then
 				castingtimeout = os.clock()
 			end
         end
-        
-        lastcasttime = os.clock()
+        lastchecktime = os.clock()
     end
 	if enabled and castingtimeout and os.clock() - castingtimeout > 10 then
 		castingtimeout = nil
@@ -112,6 +113,7 @@ ActionPacket.open_listener(function(act)
     if category == 'casting_begin' and not interruption then
         if not performing.casting and res[resource][action_id].name == performing.spell then
             -- log('casting')
+			lastcasttime = os.clock()
             performing.casting = true
 			castingtimeout = nil
         end
@@ -122,6 +124,7 @@ ActionPacket.open_listener(function(act)
     elseif S{'job_ability','job_ability_unblinkable'}:contains(category) then
         if res[resource][action_id].name == performing.spell then
             -- log('done')
+			lastcasttime = os.clock()
             table.remove(queue, 1)
             performing = {}
 			castingtimeout = nil
