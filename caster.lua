@@ -123,7 +123,7 @@ ActionPacket.open_listener(function(act)
         
     elseif S{'job_ability','job_ability_unblinkable'}:contains(category) then
         if res[resource][action_id].name == performing.spell then
-            -- log('done')
+            -- log('ja done')
 			lastcasttime = os.clock()
             table.remove(queue, 1)
             performing = {}
@@ -135,8 +135,12 @@ ActionPacket.open_listener(function(act)
         end
         
     elseif S{'spell_finish'}:contains(category) then
-        if performing.casting and res[resource][action_id].name == performing.spell then
-            -- log('done')
+        -- if performing.casting and res[resource][action_id].name == performing.spell then
+        if res[resource][action_id].name == performing.spell then
+			-- if not performing.casting then
+			-- 	log('quick mg')
+			-- end
+            -- log('ma done')
             table.remove(queue, 1)
             performing = {}
             if #queue == 0 then
