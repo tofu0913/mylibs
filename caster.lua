@@ -105,6 +105,10 @@ ActionPacket.open_listener(function(act)
         return
     end
     local actionpacket = ActionPacket.new(act)
+    local actor = actionpacket:get_id()
+	if actor ~= windower.ffxi.get_player().id then
+		return
+	end
     local category = actionpacket:get_category_string()
     local target = actionpacket:get_targets()()
     local acts = target:get_actions()()
