@@ -145,6 +145,7 @@ ActionPacket.open_listener(function(act)
 			-- 	log('quick mg')
 			-- end
             -- log('ma done')
+			lastcasttime = os.clock()
             table.remove(queue, 1)
             performing = {}
             if #queue == 0 then
