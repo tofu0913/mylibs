@@ -160,3 +160,13 @@ function waitfor(check, done, waittime)
 			end, waittime or 1)
 	end
 end
+
+function hasKI(id)
+    local items = windower.ffxi.get_key_items()
+    for key,item in pairs(items) do
+        if item == id then
+            return true
+        end
+    end
+    return false
+end
