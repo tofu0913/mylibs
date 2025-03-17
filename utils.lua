@@ -170,3 +170,13 @@ function hasKI(id)
     end
     return false
 end
+
+function isTargetShowup(targetName)
+    local marray = windower.ffxi.get_mob_array()
+    for key,mob in pairs(marray) do
+        if mob["valid_target"] and mob["hpp"] >0 and mob['name'] == targetName then
+            return true
+        end
+    end
+    return false
+end
