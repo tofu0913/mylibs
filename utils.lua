@@ -181,3 +181,14 @@ function isTargetShowup(targetName)
     end
     return false
 end
+
+function isNpcNear(name)
+	local marray = windower.ffxi.get_mob_array()
+	for key,mob in pairs(marray) do
+		if mob.valid_target and mob.hpp == 100 and string.find(mob.name, name) and math.sqrt(mob.distance) <= 7 then
+			log('is near '..name)
+			return true
+		end
+	end
+	return false
+end
