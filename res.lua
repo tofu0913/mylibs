@@ -26,3 +26,19 @@ function get_spells(input)
 		end
 	end
 end
+
+function get_zone(ja)
+    for key,zone in pairs(res.zones) do
+		if zone.ja == ja then
+			return zone
+		end
+	end
+end
+
+function get_job_id(ens)
+    for key,job in pairs(res.jobs) do
+		if job.ens == ens then
+			return job.id
+		end
+	end
+end
