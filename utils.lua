@@ -1,5 +1,6 @@
 
 require('coroutine')
+res = require('resources')
 
 function checkDeBuffs()
     local player = windower.ffxi.get_player()
