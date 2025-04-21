@@ -192,3 +192,8 @@ function isNpcNear(name)
 	end
 	return false
 end
+
+function getLuaFilename(info)
+	file, ext = info.source:match("^.+/(.+)%.(.+)$")
+	return file
+end
