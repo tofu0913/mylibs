@@ -53,7 +53,7 @@ function getPartyTarget()
     for i = 0, 5 do
         local member = pt['p'..i]
 		if member and member.mob then
-			if member.mob.status == 1 and member.mob.target_index > 0 then
+			if member.mob.status == 1 and member.mob.target_index > 0 and member.mob.id == pt.party1_leader then
 				local t = windower.ffxi.get_mob_by_index(member.mob.target_index)
 				if t and t["valid_target"] and t["hpp"] >0 and t['spawn_type']==16 then
 					return member.mob.target_index
