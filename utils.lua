@@ -197,3 +197,10 @@ function getLuaFilename(info)
 	file, ext = info.source:match("^.+/(.+)%.(.+)$")
 	return file
 end
+
+function hasMobTarget(target)
+	if target and isMob(target.id) and target.hpp > 0 and math.sqrt(target.distance) < 3 then
+		return true
+	end
+	return false
+end
