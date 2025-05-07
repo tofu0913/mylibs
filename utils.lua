@@ -204,3 +204,13 @@ function hasMobTarget(target)
 	end
 	return false
 end
+
+function check_recast(id)
+	local recast = windower.ffxi.get_ability_recasts()
+	if recast == nil then
+		return -1
+	elseif recast[id] == nil then
+		return -1
+	end
+	return recast[id]
+end
