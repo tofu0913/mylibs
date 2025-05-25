@@ -49,6 +49,41 @@ function init_member_table()
     end
 end
 
+function check_buff(buffs, buff_id)
+	local got = false
+	for i = 1, #buffs do
+		if buffs[i] == buff_id then
+			got = true
+		end
+	end
+	return got
+end
+
+function check_pt_buff(buff_id)
+	if not check_buff(windower.ffxi.get_player().buffs, buff_id) then
+		return windower.ffxi.get_player().id
+	end
+    for k = 1, 5 do
+        local member = windower.ffxi.get_party()['p'..k]
+		if member and member.mob and member_table[member.mob.id] and math.sqrt(member.mob.distance) < 20 then
+			if #member_table[member.mob.id]['buffs'] > 0 then
+				if not check_buff(member_table[member.mob.id]['buffs'], buff_id) then
+					return member.name
+				end
+			end
+		end
+	end
+end
+
+function has_pt_buff(buffname)
+	for key, item in pairs(res.buffs) do
+		if item.ja == buffname then
+			return check_pt_buff(item.id)
+		end
+	end
+	return nil
+end
+
 function count_songs(buffs)
 	local count = 0
 	for i = 1, #buffs do
