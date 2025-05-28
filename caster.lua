@@ -125,7 +125,7 @@ ActionPacket.open_listener(function(act)
     elseif category == 'casting_begin' and interruption then
 		performing = {}
         
-    elseif S{'job_ability','job_ability_unblinkable'}:contains(category) then
+    elseif S{'job_ability','job_ability_unblinkable','job_ability_run'}:contains(category) then
         if res[resource][action_id].name == performing.spell then
             -- log('ja done')
 			lastcasttime = os.clock()+1
