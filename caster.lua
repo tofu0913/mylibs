@@ -128,7 +128,7 @@ ActionPacket.open_listener(function(act)
     elseif S{'job_ability','job_ability_unblinkable','job_ability_run'}:contains(category) then
         if res[resource][action_id].name == performing.spell then
             -- log('ja done')
-			lastcasttime = os.clock()+1
+			lastcasttime = os.clock()+0.5
             table.remove(queue, 1)
             performing = {}
 			castingtimeout = nil
@@ -145,7 +145,7 @@ ActionPacket.open_listener(function(act)
 			-- 	log('quick mg')
 			-- end
             -- log('ma done')
-			lastcasttime = os.clock()+2
+			lastcasttime = os.clock()+1.5
             table.remove(queue, 1)
             performing = {}
             if #queue == 0 then
