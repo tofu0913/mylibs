@@ -20,6 +20,16 @@ function hasBuff(buffname)
     return false
 end
 
+function count_buff(buffname)
+	local rtn = 0
+    for i,v in pairs(windower.ffxi.get_player()['buffs']) do
+        if res.buffs[v] and res.buffs[v].ja == buffname then
+            rtn = rtn + 1
+        end
+    end
+    return rtn
+end
+
 function isJob(job)
     if windower.ffxi.get_player().main_job == job then
         return true
