@@ -23,9 +23,26 @@ function get_spells(input)
 				return item
 			elseif input.ja and item.ja == input.ja then
 				return item
+			elseif input.party_name and item.party_name == input.party_name then
+				return item
 			end
 		end
 	end
+end
+
+function get_spell_recast(input)
+	for key, item in pairs(res.spells) do
+		if type(input) == "string" and (item.ja == input or item.en == input) then
+			return windower.ffxi.get_spell_recasts()[item.id]
+		elseif type(input) ~= "string" then
+			if input.en and item.en == input.en then
+				return windower.ffxi.get_spell_recasts()[item.id]
+			elseif input.ja and item.ja == input.ja then
+				return windower.ffxi.get_spell_recasts()[item.id]
+			end
+		end
+	end
+	return -1
 end
 
 function get_zone(ja)
