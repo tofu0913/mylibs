@@ -16,13 +16,14 @@ end
 
 function get_spells(input)
 	for key, item in pairs(res.spells) do
-		-- if type(input) == "string" and item.ja == input then
-			-- return item
-		-- else
-		if input.en and item.en == input.en then
+		if type(input) == "string" and (item.ja == input or item.en == input or item.party_name == input) then
 			return item
-		elseif input.ja and item.ja == input.ja then
-			return item
+		elseif type(input) ~= "string" then
+			if input.en and item.en == input.en then
+				return item
+			elseif input.ja and item.ja == input.ja then
+				return item
+			end
 		end
 	end
 end
