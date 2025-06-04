@@ -24,7 +24,7 @@ function returnNotInList()
 			item = get_spells({['party_name']=member.name})
             if item and not table.contains(TRUSTS, item.ja) then
 				log('Return '..member.name)
-				windower.send_command('input /returnfaith '..member.name)
+				windower.send_command('input /returnfaith '..member.name..';wait 0.1; input /returnfaith '..member.name..';wait 0.1; input /returnfaith '..member.name)
 				coroutine.sleep(3)
 			end
         end
