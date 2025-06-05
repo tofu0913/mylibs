@@ -182,22 +182,31 @@ function hasKI(id)
     return false
 end
 
-function isTargetShowup(targetName)
+function isTargetShowup(target)
     local marray = windower.ffxi.get_mob_array()
     for key,mob in pairs(marray) do
-        if mob["valid_target"] and mob["hpp"] >0 and mob['name'] == targetName then
-            return true
+        if mob["valid_target"] and mob["hpp"] >0 then
+			if type(target) == 'string' and mob['name'] == target then
+				return true
+			elseif type(target) == 'number' and mob['id'] == target then
+				return true
+			end
         end
     end
     return false
 end
 
-function isNpcNear(name)
+function isNpcNear(target)
 	local marray = windower.ffxi.get_mob_array()
 	for key,mob in pairs(marray) do
-		if mob.valid_target and mob.hpp == 100 and string.find(mob.name, name) and math.sqrt(mob.distance) <= 7 then
-			log('is near '..name)
-			return true
+		if mob.valid_target and mob.hpp == 100 and math.sqrt(mob.distance) <= 7 then
+			if type(target) == 'string' and string.find(mob.name, target) then
+				log('is near '..target)
+				return true
+			elseif type(target) == 'number' and mob['id'] == target then
+				-- log('is near '..target)
+				return true
+			end
 		end
 	end
 	return false
