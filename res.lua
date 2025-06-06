@@ -45,6 +45,21 @@ function get_spell_recast(input)
 	return -1
 end
 
+function get_ability_recast(input)
+	for key, item in pairs(res.ability_recasts) do
+		if type(input) == "string" and (item.ja == input or item.en == input) then
+			return windower.ffxi.get_ability_recasts()[item.id]
+		elseif type(input) ~= "string" then
+			if input.en and item.en == input.en then
+				return windower.ffxi.get_ability_recasts()[item.id]
+			elseif input.ja and item.ja == input.ja then
+				return windower.ffxi.get_ability_recasts()[item.id]
+			end
+		end
+	end
+	return -1
+end
+
 function get_zone(ja)
     for key,zone in pairs(res.zones) do
 		if zone.ja == ja then
