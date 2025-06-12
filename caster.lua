@@ -93,10 +93,10 @@ windower.register_event('prerender', function()
 	if enabled and castingtimeout and os.clock() - castingtimeout > 10 then
 		castingtimeout = nil
 		log('found timeout')
-		cast_reset()
 		if castingtimeout_cmd then
 			windower.send_command('input '..windower.to_shift_jis(castingtimeout_cmd))
 		end
+		cast_reset()
 	end
 end)
 
