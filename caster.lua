@@ -7,7 +7,7 @@ local performing = {}
 local enabled = false
 local lastcasttime = os.clock()
 local lastchecktime = os.clock()
-local castingtimeout = nil
+local castingtimeout = 0
 local castingtimeout_cmd = nil
 local targetmode = false
 
@@ -84,14 +84,14 @@ windower.register_event('prerender', function()
 			end
             windower.send_command('input /'..performing.type..' '..windower.to_shift_jis(performing.spell)..' <'..performing.target..'>')
 			-- log('use')
-			if not castingtimeout then
+			if castingtimeout == 0 then
 				castingtimeout = os.clock()
 			end
         end
         lastchecktime = os.clock()
     end
-	if enabled and castingtimeout and os.clock() - castingtimeout > 10 then
-		castingtimeout = nil
+	if enabled and castingtimeout > 0 and os.clock() - castingtimeout > 10 then
+		castingtimeout = 0
 		log('found timeout')
 		if castingtimeout_cmd then
 			windower.send_command('input '..windower.to_shift_jis(castingtimeout_cmd))
@@ -119,7 +119,6 @@ ActionPacket.open_listener(function(act)
             -- log('casting')
 			lastcasttime = os.clock()
             performing.casting = true
-			castingtimeout = nil
         end
 		
     elseif category == 'casting_begin' and interruption then
@@ -131,7 +130,7 @@ ActionPacket.open_listener(function(act)
 			lastcasttime = os.clock()+0.5
             table.remove(queue, 1)
             performing = {}
-			castingtimeout = nil
+			castingtimeout = 0
             if #queue == 0 then
                 enabled = false
                 -- log('All done')
@@ -152,6 +151,7 @@ ActionPacket.open_listener(function(act)
                 enabled = false
                 -- log('All done')
             end
+			castingtimeout = 0
         end
     end
 end)
