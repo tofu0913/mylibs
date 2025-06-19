@@ -143,7 +143,7 @@ function in_pos(x, y, range)
 		range = 5
 	end
 	local pl = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().index or 0)
-	if math.sqrt(math.pow(x-pl.x,2) + math.pow(y-pl.y,2)) < range then
+	if pl and math.sqrt(math.pow(x-pl.x,2) + math.pow(y-pl.y,2)) < range then
 		return true
 	end
 	return false
