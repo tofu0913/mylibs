@@ -361,6 +361,12 @@ function isAggrod()
     return count ~= 0
 end
 
+function aggroCount()
+    local count = 0
+    for _ in pairs(tracked_enmity) do count = count + 1 end
+    return count
+end
+
 function isInAggro(id)
     if tracked_enmity[id] then
         return true
