@@ -31,14 +31,14 @@ function count_buff(buffname)
 end
 
 function isJob(job)
-    if windower.ffxi.get_player().main_job == job then
+    if windower.ffxi.get_player() and windower.ffxi.get_player().main_job == job then
         return true
     end
     return false
 end
 
 function isSubJob(job)
-    if windower.ffxi.get_player().sub_job == job then
+    if windower.ffxi.get_player() and windower.ffxi.get_player().sub_job == job then
         return true
     end
     return false
