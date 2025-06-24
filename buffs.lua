@@ -103,7 +103,7 @@ function get_song_counts()
     
     for k = 1, 5 do
         local member = party[key_indices[k]]
-		if member and member.mob and member_table[member.mob.id] then
+		if member and member.mob and member_table[member.mob.id] and math.sqrt(member.mob["distance"]) <= 20 then
 			if #member_table[member.mob.id]['buffs'] > 0 then
 				counts[k+1] = count_songs(member_table[member.mob.id]['buffs'])
 			end
