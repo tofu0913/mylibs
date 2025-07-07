@@ -37,20 +37,21 @@ end
 
 windower.register_event('prerender', function(...)
     if follow_name then
-		if os.clock() - record_timer >= 0.1 then
-			local target = windower.ffxi.get_mob_by_name(follow_name)
-			if target then
-				-- log(target.x..','..target.y)
-				if math.sqrt(math.pow(target.x-pre_pos.x,2) + math.pow(target.y-pre_pos.y,2)) <= 20 then
-					pre_pos.x = target.x
-					pre_pos.y = target.y
-					table.insert(follow_queue, pre_pos)
-				end
-			end
-			record_timer = os.clock()
-		end
         pl = windower.ffxi.get_mob_by_index(windower.ffxi.get_player().index or 0)
         if pl then
+			if os.clock() - record_timer >= 0.1 then
+				local target = windower.ffxi.get_mob_by_name(follow_name)
+				if target then
+					-- log(target.x..','..target.y)
+					if math.sqrt(math.pow(target.x-pl.x,2) + math.pow(target.y-pl.y,2)) <= 20 and	--ignore too far
+						math.sqrt(math.pow(target.x-pre_pos.x,2) + math.pow(target.y-pre_pos.y,2)) ~=0 then	--ignore the same pos
+						pre_pos.x = target.x
+						pre_pos.y = target.y
+						table.insert(follow_queue, pre_pos)
+					end
+				end
+				record_timer = os.clock()
+			end
 			if next(follow_target) == nil then
 				local item = table.remove(follow_queue, 1)
 				if item then
