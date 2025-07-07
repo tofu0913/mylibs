@@ -90,7 +90,7 @@ windower.register_event('prerender', function()
         end
         lastchecktime = os.clock()
     end
-	if enabled and castingtimeout > 0 and os.clock() - castingtimeout > 10 then
+	if enabled and castingtimeout > 0 and os.clock() - castingtimeout > 20 then
 		castingtimeout = 0
 		log('found timeout')
 		if castingtimeout_cmd then
