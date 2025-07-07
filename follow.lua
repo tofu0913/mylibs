@@ -31,8 +31,11 @@ function follow_start(input)
 	end
 end
 
-function follow_stop()	
+function follow_stop()
 	follow_name = nil
+	follow_queue = {}
+	follow_target = {}
+	windower.ffxi.run(false)
 end
 
 windower.register_event('prerender', function(...)
