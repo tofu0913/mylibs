@@ -55,15 +55,23 @@ function cast_time(sec)
 end
 
 windower.register_event('prerender', function()
-	if enabled and targetmode then
-		local target = windower.ffxi.get_mob_by_target('t')
-		if not target or (target and not isMob(target.id))then
-			cast_reset()
-			log('No target, reset')
-			return
-		end
-	end
+	-- if enabled and targetmode then
+		-- local target = windower.ffxi.get_mob_by_target('t')
+		-- if not target or (target and not isMob(target.id))then
+			-- cast_reset()
+			-- log('No target, reset')
+			-- return
+		-- end
+	-- end
     if enabled and os.clock() - lastcasttime > wait_time and os.clock() - lastchecktime > 0.5 and #queue > 0 and not performing.casting then
+		if targetmode then
+			local target = windower.ffxi.get_mob_by_target('t')
+			if not target or (target and not isMob(target.id))then
+				cast_reset()
+				log('No target, reset')
+				return
+			end
+		end
         q = queue[1]
         if q.type == 'cmd' then
             windower.send_command('input '..windower.to_shift_jis(q.command))
