@@ -46,7 +46,7 @@ windower.register_event('prerender', function(...)
 				local target = windower.ffxi.get_mob_by_name(follow_name)
 				if target then
 					-- log(target.x..','..target.y)
-					if math.sqrt(math.pow(target.x-pl.x,2) + math.pow(target.y-pl.y,2)) <= 20 and	--ignore too far
+					if math.sqrt(math.pow(target.x-pl.x,2) + math.pow(target.y-pl.y,2)) <= 30 and	--ignore too far
 						math.sqrt(math.pow(target.x-pre_pos.x,2) + math.pow(target.y-pre_pos.y,2)) ~=0 then	--ignore the same pos
 						pre_pos.x = target.x
 						pre_pos.y = target.y
