@@ -84,6 +84,30 @@ function has_pt_buff(buffname)
 	return nil
 end
 
+function has_ptnames_buff(names, buffname)
+	local buff_id = 0
+	for key, item in pairs(res.buffs) do
+		if item.ja == buffname then
+			buff_id = item.id
+			break
+		end
+	end
+	if buff_id == 0 then return end
+	if names:contains(windower.ffxi.get_player().name) and not check_buff(windower.ffxi.get_player().buffs, buff_id) then
+		return windower.ffxi.get_player().id
+	end
+    for k = 1, 5 do
+        local member = windower.ffxi.get_party()['p'..k]
+		if member and names:contains(member.name) and member.mob and member_table[member.mob.id] and math.sqrt(member.mob.distance) < 20 then
+			if #member_table[member.mob.id]['buffs'] > 0 then
+				if not check_buff(member_table[member.mob.id]['buffs'], buff_id) then
+					return member.name
+				end
+			end
+		end
+	end
+end
+
 function count_songs(buffs)
 	local count = 0
 	for i = 1, #buffs do
