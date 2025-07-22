@@ -74,9 +74,12 @@ windower.register_event('prerender', function()
 		end
         q = queue[1]
         if q.type == 'cmd' then
-            windower.send_command('input '..windower.to_shift_jis(q.command))
             table.remove(queue, 1)
             performing = {}
+			if q.command then
+				windower.send_command('input '..windower.to_shift_jis(q.command))
+				q.command = nil
+			end
             if #queue == 0 then
                 enabled = false
                 -- log('All done')
