@@ -77,8 +77,9 @@ windower.register_event('prerender', function()
             table.remove(queue, 1)
             performing = {}
 			if q.command then
-				windower.send_command('input '..windower.to_shift_jis(q.command))
+				local text = q.command
 				q.command = nil
+				windower.send_command('input '..windower.to_shift_jis(text))
 			end
             if #queue == 0 then
                 enabled = false
@@ -90,8 +91,9 @@ windower.register_event('prerender', function()
             performing.target = q.target
             -- log('Perform '..performing.spell)
 			if q.command then
-				windower.send_command('input '..windower.to_shift_jis(q.command))
+				local text = q.command
 				q.command = nil
+				windower.send_command('input '..windower.to_shift_jis(text))
 			end
             windower.send_command('input /'..performing.type..' '..windower.to_shift_jis(performing.spell)..' <'..performing.target..'>')
 			-- log('use')
