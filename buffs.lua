@@ -59,6 +59,45 @@ function check_buff(buffs, buff_id)
 	return got
 end
 
+function check_buffs(buffs, targets)
+	for i = 1, #targets do
+		for k = 1, #buffs do
+			if buffs[k] == targets[i] then
+				log('have '..targets[i])
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function has_pt_buffs(buffnames)
+	buff_ids = {}
+	for key, item in pairs(res.buffs) do
+		if buffnames:contains(item.ja) then
+			table.insert(buff_ids, #buff_ids, item.id)
+		end
+	end
+	-- Check self first
+	if not check_buffs(windower.ffxi.get_player().buffs, buff_ids) then
+		return windower.ffxi.get_player().id
+	end
+	-- Check pt members
+    for k = 1, 5 do
+        local member = windower.ffxi.get_party()['p'..k]
+		if member and member.mob and member_table[member.mob.id] and math.sqrt(member.mob.distance) < 20 then
+			if #member_table[member.mob.id]['buffs'] > 0 then
+				-- if not check_buff(member_table[member.mob.id]['buffs'], buff_id) then
+					-- return member.name
+				if not check_buffs(member_table[member.mob.id]['buffs'], buff_ids) then
+					return member.name
+				end
+			end
+		end
+	end
+	return nil
+end
+
 function check_pt_buff(buff_id)
 	if not check_buff(windower.ffxi.get_player().buffs, buff_id) then
 		return windower.ffxi.get_player().id
