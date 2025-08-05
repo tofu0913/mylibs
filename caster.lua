@@ -86,6 +86,7 @@ windower.register_event('prerender', function()
                 -- log('All done')
             end
         else
+			performing = {}
             performing.type = q.type
             performing.spell = q.spell
             performing.target = q.target
@@ -140,7 +141,7 @@ ActionPacket.open_listener(function(act)
     elseif S{'job_ability','job_ability_unblinkable','job_ability_run'}:contains(category) then
         if res[resource][action_id].name == performing.spell then
             -- log('ja done')
-			lastcasttime = os.clock()+0.5
+			lastcasttime = os.clock()+0.25
             table.remove(queue, 1)
             performing = {}
 			castingtimeout = 0
